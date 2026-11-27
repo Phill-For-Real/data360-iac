@@ -1,0 +1,1284 @@
+{
+  "useCase": "asset-maintenance",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "account",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "account",
+        "label": "Account"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "vehicle",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "vehicle",
+        "label": "Vehicle"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "vehicle_telematics_event",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "vehicle_telematics_event",
+        "label": "Vehicle Telematics Event"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataStream",
+      "name": "account_stream",
+      "properties": {
+        "name": "account_stream",
+        "label": "Account Stream",
+        "connectionId": "${Connection.account.id}",
+        "datastreamType": "INGEST_API",
+        "dataAccessMode": "Ingest",
+        "connectorInfo": {
+          "connectorType": "IngestApi",
+          "connectorDetails": {
+            "name": "${Connection.account.apiName}",
+            "events": ["account_dlo"]
+          }
+        },
+        "dataLakeObjectInfo": {
+          "label": "Account DLO",
+          "name": "account_dlo",
+          "category": "Profile",
+          "dataspaceInfo": [
+            {
+              "name": "default"
+            }
+          ],
+          "dataLakeFieldInputRepresentations": [
+            {
+              "name": "accountId",
+              "label": "Account ID",
+              "dataType": "Text",
+              "isPrimaryKey": true
+            },
+            {
+              "name": "accountName",
+              "label": "Account Name",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "accountNumber",
+              "label": "Account Number",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "description",
+              "label": "Account Description",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "accountType",
+              "label": "Account Type",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "industry",
+              "label": "Primary Industry",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "annualRevenue",
+              "label": "Annual Revenue",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "website",
+              "label": "Website",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "numberOfEmployees",
+              "label": "Number of Employees",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "accountSource",
+              "label": "Account Source",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "isActive",
+              "label": "Is Active",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "billingPostalCode",
+              "label": "Billing Postal Code",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "billingStreetAddress",
+              "label": "Billing Street Address",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "billingCity",
+              "label": "Billing City",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "billingCountry",
+              "label": "Billing Country",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "phone",
+              "label": "Phone",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "createdDate",
+              "label": "Created Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "lastModifiedDate",
+              "label": "Last Modified Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            }
+          ]
+        },
+        "mappings": [],
+        "refreshConfig": {
+          "refreshMode": "UPSERT"
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataStream",
+      "name": "vehicle_stream",
+      "properties": {
+        "name": "vehicle_stream",
+        "label": "Vehicle Stream",
+        "connectionId": "${Connection.vehicle.id}",
+        "datastreamType": "INGEST_API",
+        "dataAccessMode": "Ingest",
+        "connectorInfo": {
+          "connectorType": "IngestApi",
+          "connectorDetails": {
+            "name": "${Connection.vehicle.apiName}",
+            "events": ["vehicle_dlo"]
+          }
+        },
+        "dataLakeObjectInfo": {
+          "label": "Vehicle DLO",
+          "name": "vehicle_dlo",
+          "category": "Other",
+          "dataspaceInfo": [
+            {
+              "name": "default"
+            }
+          ],
+          "dataLakeFieldInputRepresentations": [
+            {
+              "name": "vehicleId",
+              "label": "Vehicle ID",
+              "dataType": "Text",
+              "isPrimaryKey": true
+            },
+            {
+              "name": "vin",
+              "label": "Vehicle Identification Number",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "chassisNumber",
+              "label": "Chassis Number",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "engineNumber",
+              "label": "Engine Number",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "name",
+              "label": "Name",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "status",
+              "label": "Status",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "conditionType",
+              "label": "Condition Type",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "assetId",
+              "label": "Asset ID",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "currentOwnerId",
+              "label": "Current Owner ID",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "manufacturedDate",
+              "label": "Manufactured Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "registrationNumber",
+              "label": "Registration Number",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "isTelematicsActive",
+              "label": "Is Telematics Active",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "lastOdometer",
+              "label": "Last Odometer Reading",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "odometerReadingDate",
+              "label": "Odometer Reading Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "lastServiceDate",
+              "label": "Last Service Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "isRecallOpen",
+              "label": "Is Recall Open",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "warrantyStartDate",
+              "label": "Manufacturer Warranty Start Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "warrantyEndDate",
+              "label": "Manufacturer Warranty End Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "vehicleDefinitionId",
+              "label": "Vehicle Definition ID",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            }
+          ]
+        },
+        "mappings": [],
+        "refreshConfig": {
+          "refreshMode": "UPSERT"
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataStream",
+      "name": "vehicle_telematics_event_stream",
+      "properties": {
+        "name": "vehicle_telematics_event_stream",
+        "label": "Vehicle Telematics Event Stream",
+        "connectionId": "${Connection.vehicle_telematics_event.id}",
+        "datastreamType": "INGEST_API",
+        "dataAccessMode": "Ingest",
+        "connectorInfo": {
+          "connectorType": "IngestApi",
+          "connectorDetails": {
+            "name": "${Connection.vehicle_telematics_event.apiName}",
+            "events": ["vehicle_telematics_event_dlo"]
+          }
+        },
+        "dataLakeObjectInfo": {
+          "label": "Vehicle Telematics Event DLO",
+          "name": "vehicle_telematics_event_dlo",
+          "category": "Engagement",
+          "eventDateTimeFieldName": "sentDate",
+          "dataspaceInfo": [
+            {
+              "name": "default"
+            }
+          ],
+          "dataLakeFieldInputRepresentations": [
+            {
+              "name": "eventId",
+              "label": "Event ID",
+              "dataType": "Text",
+              "isPrimaryKey": true
+            },
+            {
+              "name": "vehicleId",
+              "label": "Vehicle ID",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "assetId",
+              "label": "Asset ID",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "triggeredDate",
+              "label": "Triggered Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "sentDate",
+              "label": "Sent Date",
+              "dataType": "DateTime",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "speed",
+              "label": "Speed",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "odometer",
+              "label": "Odometer",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "latitude",
+              "label": "Latitude",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "longitude",
+              "label": "Longitude",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "eventType",
+              "label": "Event Type",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "eventCategory",
+              "label": "Event Category",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "acceleration",
+              "label": "Acceleration",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "engineRPM",
+              "label": "Engine RPM",
+              "dataType": "Number",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "ignitionStatus",
+              "label": "Ignition Status",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            },
+            {
+              "name": "priority",
+              "label": "Priority",
+              "dataType": "Text",
+              "isPrimaryKey": false
+            }
+          ]
+        },
+        "mappings": [],
+        "refreshConfig": {
+          "refreshMode": "UPSERT"
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataLakeObject",
+      "name": "standalone_audit_dlo",
+      "properties": {
+        "name": "standalone_audit_dlo",
+        "label": "Standalone Audit DLO",
+        "category": "Other",
+        "dataspaceInfo": [
+          {
+            "name": "default"
+          }
+        ],
+        "dataLakeFieldInputRepresentations": [
+          {
+            "name": "Id",
+            "label": "Id",
+            "dataType": "Text",
+            "isPrimaryKey": true
+          }
+        ]
+      }
+    },
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "ssot_account_dmo",
+      "lookup": {
+        "name": "ssot__Account__dlm"
+      }
+    },
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "ssot_contact_point_address_dmo",
+      "lookup": {
+        "name": "ssot__ContactPointAddress__dlm"
+      }
+    },
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "ssot_contact_point_phone_dmo",
+      "lookup": {
+        "name": "ssot__ContactPointPhone__dlm"
+      }
+    },
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "ssot_vehicle_dmo",
+      "lookup": {
+        "name": "ssot__Vehicle__dlm"
+      }
+    },
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "ssot_vehicle_telematics_event_dmo",
+      "lookup": {
+        "name": "ssot__VehicleTelematicsEvent__dlm"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataModelObjectMapping",
+      "name": "account_to_account_dmo_mapping",
+      "dependsOn": ["DataStream.account_stream"],
+      "properties": {
+        "sourceEntityDeveloperName": "${DataStream.account_stream.dlApiName}",
+        "targetEntityDeveloperName": "${DataModelObject.ssot_account_dmo.apiName}",
+        "fieldMapping": [
+          {
+            "sourceFieldDeveloperName": "accountId__c",
+            "targetFieldDeveloperName": "ssot__Id__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountName__c",
+            "targetFieldDeveloperName": "ssot__Name__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountNumber__c",
+            "targetFieldDeveloperName": "ssot__Number__c"
+          },
+          {
+            "sourceFieldDeveloperName": "description__c",
+            "targetFieldDeveloperName": "ssot__Description__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountType__c",
+            "targetFieldDeveloperName": "ssot__AccountType__c"
+          },
+          {
+            "sourceFieldDeveloperName": "industry__c",
+            "targetFieldDeveloperName": "ssot__PrimaryIndustry__c"
+          },
+          {
+            "sourceFieldDeveloperName": "annualRevenue__c",
+            "targetFieldDeveloperName": "ssot__AnnualRevenueAmount__c"
+          },
+          {
+            "sourceFieldDeveloperName": "website__c",
+            "targetFieldDeveloperName": "ssot__WebsiteAddr__c"
+          },
+          {
+            "sourceFieldDeveloperName": "numberOfEmployees__c",
+            "targetFieldDeveloperName": "ssot__EmployeeCount__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountSource__c",
+            "targetFieldDeveloperName": "ssot__AccountSource__c"
+          },
+          {
+            "sourceFieldDeveloperName": "isActive__c",
+            "targetFieldDeveloperName": "ssot__IsActive__c"
+          },
+          {
+            "sourceFieldDeveloperName": "createdDate__c",
+            "targetFieldDeveloperName": "ssot__CreatedDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "lastModifiedDate__c",
+            "targetFieldDeveloperName": "ssot__LastModifiedDate__c"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataModelObjectMapping",
+      "name": "account_to_contact_point_address_mapping",
+      "dependsOn": ["DataStream.account_stream"],
+      "properties": {
+        "sourceEntityDeveloperName": "${DataStream.account_stream.dlApiName}",
+        "targetEntityDeveloperName": "${DataModelObject.ssot_contact_point_address_dmo.apiName}",
+        "fieldMapping": [
+          {
+            "sourceFieldDeveloperName": "billingPostalCode__c",
+            "targetFieldDeveloperName": "ssot__PostalCodeId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "billingStreetAddress__c",
+            "targetFieldDeveloperName": "ssot__AddressLine1__c"
+          },
+          {
+            "sourceFieldDeveloperName": "billingCity__c",
+            "targetFieldDeveloperName": "ssot__CityName__c"
+          },
+          {
+            "sourceFieldDeveloperName": "billingCountry__c",
+            "targetFieldDeveloperName": "ssot__CountryName__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountId__c",
+            "targetFieldDeveloperName": "ssot__PartyId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountId__c",
+            "targetFieldDeveloperName": "ssot__Id__c"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataModelObjectMapping",
+      "name": "account_to_contact_point_phone_mapping",
+      "dependsOn": ["DataStream.account_stream"],
+      "properties": {
+        "sourceEntityDeveloperName": "${DataStream.account_stream.dlApiName}",
+        "targetEntityDeveloperName": "${DataModelObject.ssot_contact_point_phone_dmo.apiName}",
+        "fieldMapping": [
+          {
+            "sourceFieldDeveloperName": "phone__c",
+            "targetFieldDeveloperName": "ssot__FormattedE164PhoneNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountId__c",
+            "targetFieldDeveloperName": "ssot__PartyId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "accountId__c",
+            "targetFieldDeveloperName": "ssot__Id__c"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataModelObjectMapping",
+      "name": "vehicle_to_vehicle_dmo_mapping",
+      "dependsOn": ["DataStream.vehicle_stream"],
+      "properties": {
+        "sourceEntityDeveloperName": "${DataStream.vehicle_stream.dlApiName}",
+        "targetEntityDeveloperName": "${DataModelObject.ssot_vehicle_dmo.apiName}",
+        "fieldMapping": [
+          {
+            "sourceFieldDeveloperName": "vehicleId__c",
+            "targetFieldDeveloperName": "ssot__Id__c"
+          },
+          {
+            "sourceFieldDeveloperName": "vin__c",
+            "targetFieldDeveloperName": "ssot__VehicleIdentificationNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "chassisNumber__c",
+            "targetFieldDeveloperName": "ssot__ChassisNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "engineNumber__c",
+            "targetFieldDeveloperName": "ssot__EngineNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "name__c",
+            "targetFieldDeveloperName": "ssot__Name__c"
+          },
+          {
+            "sourceFieldDeveloperName": "status__c",
+            "targetFieldDeveloperName": "ssot__Status__c"
+          },
+          {
+            "sourceFieldDeveloperName": "conditionType__c",
+            "targetFieldDeveloperName": "ssot__ConditionType__c"
+          },
+          {
+            "sourceFieldDeveloperName": "assetId__c",
+            "targetFieldDeveloperName": "ssot__AssetId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "currentOwnerId__c",
+            "targetFieldDeveloperName": "ssot__CurrentOwnerId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "manufacturedDate__c",
+            "targetFieldDeveloperName": "ssot__ManufacturedDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "registrationNumber__c",
+            "targetFieldDeveloperName": "ssot__RegistrationNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "isTelematicsActive__c",
+            "targetFieldDeveloperName": "ssot__IsTelematicsServiceActive__c"
+          },
+          {
+            "sourceFieldDeveloperName": "lastOdometer__c",
+            "targetFieldDeveloperName": "ssot__LastOdometerReadingNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "odometerReadingDate__c",
+            "targetFieldDeveloperName": "ssot__OdometerReadingDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "lastServiceDate__c",
+            "targetFieldDeveloperName": "ssot__LastServiceDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "isRecallOpen__c",
+            "targetFieldDeveloperName": "ssot__IsRecallOpen__c"
+          },
+          {
+            "sourceFieldDeveloperName": "warrantyStartDate__c",
+            "targetFieldDeveloperName": "ssot__ManufacturerWarrantyStartDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "warrantyEndDate__c",
+            "targetFieldDeveloperName": "ssot__ManufacturerWarrantyEndDate__c"
+          },
+          {
+            "sourceFieldDeveloperName": "vehicleDefinitionId__c",
+            "targetFieldDeveloperName": "ssot__VehicleDefinitionId__c"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataModelObjectMapping",
+      "name": "vehicle_telematics_event_to_dmo_mapping",
+      "dependsOn": ["DataStream.vehicle_telematics_event_stream"],
+      "properties": {
+        "sourceEntityDeveloperName": "${DataStream.vehicle_telematics_event_stream.dlApiName}",
+        "targetEntityDeveloperName": "${DataModelObject.ssot_vehicle_telematics_event_dmo.apiName}",
+        "fieldMapping": [
+          {
+            "sourceFieldDeveloperName": "eventId__c",
+            "targetFieldDeveloperName": "ssot__Id__c"
+          },
+          {
+            "sourceFieldDeveloperName": "vehicleId__c",
+            "targetFieldDeveloperName": "ssot__VehicleId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "assetId__c",
+            "targetFieldDeveloperName": "ssot__AssetId__c"
+          },
+          {
+            "sourceFieldDeveloperName": "triggeredDate__c",
+            "targetFieldDeveloperName": "ssot__TriggeredDateTime__c"
+          },
+          {
+            "sourceFieldDeveloperName": "sentDate__c",
+            "targetFieldDeveloperName": "ssot__SentDateTime__c"
+          },
+          {
+            "sourceFieldDeveloperName": "speed__c",
+            "targetFieldDeveloperName": "ssot__SpeedNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "odometer__c",
+            "targetFieldDeveloperName": "ssot__OdometerReadingNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "latitude__c",
+            "targetFieldDeveloperName": "ssot__Latitude__c"
+          },
+          {
+            "sourceFieldDeveloperName": "longitude__c",
+            "targetFieldDeveloperName": "ssot__Longitude__c"
+          },
+          {
+            "sourceFieldDeveloperName": "eventType__c",
+            "targetFieldDeveloperName": "ssot__EventType__c"
+          },
+          {
+            "sourceFieldDeveloperName": "eventCategory__c",
+            "targetFieldDeveloperName": "ssot__EventCategory__c"
+          },
+          {
+            "sourceFieldDeveloperName": "acceleration__c",
+            "targetFieldDeveloperName": "ssot__AccelerationNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "engineRPM__c",
+            "targetFieldDeveloperName": "ssot__EngineRevolutionsPerMinuteNumber__c"
+          },
+          {
+            "sourceFieldDeveloperName": "ignitionStatus__c",
+            "targetFieldDeveloperName": "ssot__IgnitionStatus__c"
+          },
+          {
+            "sourceFieldDeveloperName": "priority__c",
+            "targetFieldDeveloperName": "ssot__Priority__c"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataLakeObject",
+      "name": "vehicle_maintenance_enrichment_dlo",
+      "properties": {
+        "name": "vehicle_maintenance_enrichment_dlo",
+        "label": "Vehicle Maintenance Enrichment DLO",
+        "category": "Other",
+        "dataspaceInfo": [
+          {
+            "name": "default"
+          }
+        ],
+        "dataLakeFieldInputRepresentations": [
+          {
+            "name": "vehicleId",
+            "label": "Vehicle ID",
+            "dataType": "Text",
+            "isPrimaryKey": true
+          },
+          {
+            "name": "lastServiceDate",
+            "label": "Last Service Date",
+            "dataType": "DateTime",
+            "isPrimaryKey": false
+          },
+          {
+            "name": "isRecallOpen",
+            "label": "Is Recall Open",
+            "dataType": "Text",
+            "isPrimaryKey": false
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "DataTransform",
+      "name": "vehicle_maintenance_enrichment_transform",
+      "properties": {
+        "name": "VehicleMaintenanceEnrichmentTransform",
+        "label": "Vehicle Maintenance Enrichment",
+        "type": "BATCH",
+        "definition": {
+          "type": "STL",
+          "version": "63.0",
+          "nodes": {
+            "LOAD_DATASET0": {
+              "action": "load",
+              "parameters": {
+                "dataset": {
+                  "name": "${DataStream.vehicle_stream.dlApiName}",
+                  "type": "dataLakeObject"
+                },
+                "fields": ["vehicleId__c", "lastServiceDate__c", "isRecallOpen__c"],
+                "sampleDetails": {
+                  "sortBy": [],
+                  "type": "TopN"
+                }
+              },
+              "sources": []
+            },
+            "OUTPUT0": {
+              "action": "outputD360",
+              "parameters": {
+                "fieldsMappings": [
+                  {
+                    "sourceField": "vehicleId__c",
+                    "targetField": "vehicleId__c"
+                  },
+                  {
+                    "sourceField": "lastServiceDate__c",
+                    "targetField": "lastServiceDate__c"
+                  },
+                  {
+                    "sourceField": "isRecallOpen__c",
+                    "targetField": "isRecallOpen__c"
+                  }
+                ],
+                "name": "${DataLakeObject.vehicle_maintenance_enrichment_dlo.apiName}",
+                "type": "dataLakeObject"
+              },
+              "sources": ["LOAD_DATASET0"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "IdentityResolutionRuleset",
+      "name": "account_identity_resolution",
+      "properties": {
+        "label": "Account Identity Resolution",
+        "description": "Resolves duplicate accounts",
+        "configurationType": "Account",
+        "rulesetId": "",
+        "doesRunAutomatically": true,
+        "matchRules": [
+          {
+            "label": "fuzzy_name_and_exact_website",
+            "criteria": [
+              {
+                "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+                "fieldName": "ssot__Name__c",
+                "matchMethodType": "fuzzy",
+                "shouldMatchOnBlank": false
+              },
+              {
+                "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+                "fieldName": "ssot__WebsiteAddr__c",
+                "matchMethodType": "exact",
+                "shouldMatchOnBlank": false
+              }
+            ]
+          }
+        ],
+        "reconciliationRules": [
+          {
+            "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+            "fields": [],
+            "ruleType": "lastupdated",
+            "shouldIgnoreEmptyValue": true,
+            "sources": []
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "CalculatedInsight",
+      "name": "vehicle_health_score_ci",
+      "properties": {
+        "apiName": "VehicleHealthScore",
+        "displayName": "Vehicle Health Score",
+        "definitionType": "CALCULATED_METRIC",
+        "dataSpaceName": "default",
+        "description": "Health score per vehicle based on fault event rate",
+        "expression": "SELECT ssot__VehicleTelematicsEvent__dlm.ssot__VehicleId__c AS VehicleId__c, SUM(CASE WHEN ssot__VehicleTelematicsEvent__dlm.ssot__EventCategory__c = 'Fault' THEN 1 ELSE 0 END) AS FaultCount__c, COUNT(ssot__VehicleTelematicsEvent__dlm.ssot__Id__c) AS TotalEventCount__c FROM ssot__VehicleTelematicsEvent__dlm GROUP BY ssot__VehicleTelematicsEvent__dlm.ssot__VehicleId__c",
+        "publishScheduleInterval": "Six",
+        "publishScheduleStartDateTime": "2026-01-01T00:00"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Segment",
+      "name": "high_value_accounts_segment",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "displayName": "High Value Accounts",
+        "description": "Unified accounts with above-threshold annual revenue, for premium service outreach. Built on UnifiedAccount__dlm.",
+        "segmentOnApiName": "UnifiedAccount__dlm",
+        "segmentType": "Dbt",
+        "developerName": "high_value_accounts_segment",
+        "includeDbt": {
+          "models": {
+            "models": [
+              {
+                "name": "high_value_accounts",
+                "sql": "select UnifiedAccount__dlm.ssot__Id__c from UnifiedAccount__dlm where UnifiedAccount__dlm.ssot__AnnualRevenueAmount__c > 1000000"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Segment",
+      "name": "recently_active_accounts_segment",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "displayName": "Recently Active Accounts",
+        "description": "Unified accounts with recent activity, for proactive maintenance follow-up. Built on UnifiedAccount__dlm.",
+        "segmentOnApiName": "UnifiedAccount__dlm",
+        "segmentType": "Dbt",
+        "developerName": "recently_active_accounts_segment",
+        "includeDbt": {
+          "models": {
+            "models": [
+              {
+                "name": "recently_active_accounts",
+                "sql": "select UnifiedAccount__dlm.ssot__Id__c from UnifiedAccount__dlm where UnifiedAccount__dlm.ssot__LastActivityDate__c > NOW() - INTERVAL '90' DAY"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "ActivationTarget",
+      "name": "data_cloud_activation_target",
+      "properties": {
+        "dataSpaceName": "default",
+        "name": "asset_maintenance_dmo_target",
+        "description": "Writes activation audiences back into Data Cloud as DMOs -- no external credentials needed.",
+        "platformType": "DataCloud",
+        "connector": {}
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Activation",
+      "name": "high_value_accounts_activation",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "name": "high_value_accounts_activation",
+        "description": "Activates the High Value Accounts segment to the Data Cloud DMO target, carrying the unified account id/name and a related contact email.",
+        "dataSpaceName": "default",
+        "segmentApiName": "${Segment.high_value_accounts_segment.apiName}",
+        "activationTargetName": "${ActivationTarget.data_cloud_activation_target.apiName}",
+        "activationTargetSubjectConfig": {
+          "developerName": "UnifiedAccount__dlm"
+        },
+        "refreshType": "INCREMENTAL",
+        "attributesConfig": {
+          "attributes": [
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Unified Account Id",
+              "name": "ssot__Id__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Id",
+              "source": "DIRECT",
+              "type": "MODEL"
+            },
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Account Name",
+              "name": "ssot__Name__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Name__c",
+              "source": "DIRECT",
+              "type": "MODEL"
+            }
+          ]
+        },
+        "contactPointsConfig": {
+          "contactPoints": [
+            {
+              "type": "EMAIL",
+              "entityName": "ssot__ContactPointEmail__dlm",
+              "attributesConfig": {
+                "attributes": [
+                  {
+                    "label": "Email Address",
+                    "name": "ssot__EmailAddress__c"
+                  }
+                ]
+              },
+              "queryPathConfig": {
+                "configs": [
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedAccount__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__PartyId__c",
+                          "objectName": "UnifiedContactPointEmail__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedContactPointEmail__dlm"
+                        },
+                        {
+                          "fieldName": "UnifiedRecordId__c",
+                          "objectName": "ContactPointEmailIdentityLink__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "SourceRecordId__c",
+                          "objectName": "ContactPointEmailIdentityLink__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "ssot__ContactPointEmail__dlm"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "sourcesConfig": {
+                "contactPointSources": [
+                  {
+                    "dataSourcePreference": "ANY",
+                    "dataSourcePriority": 1,
+                    "name": "Any"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Activation",
+      "name": "recently_active_accounts_activation",
+      "dependsOn": [
+        "IdentityResolutionRuleset.account_identity_resolution",
+        "Activation.high_value_accounts_activation"
+      ],
+      "properties": {
+        "name": "recently_active_accounts_activation",
+        "description": "Activates the Recently Active Accounts segment to the Data Cloud DMO target, carrying the unified account id and a related phone number.",
+        "dataSpaceName": "default",
+        "segmentApiName": "${Segment.recently_active_accounts_segment.apiName}",
+        "activationTargetName": "${ActivationTarget.data_cloud_activation_target.apiName}",
+        "activationTargetSubjectConfig": {
+          "developerName": "UnifiedAccount__dlm"
+        },
+        "refreshType": "INCREMENTAL",
+        "attributesConfig": {
+          "attributes": [
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Unified Account Id",
+              "name": "ssot__Id__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Id",
+              "source": "DIRECT",
+              "type": "MODEL"
+            }
+          ]
+        },
+        "contactPointsConfig": {
+          "contactPoints": [
+            {
+              "type": "PHONE",
+              "entityName": "ssot__ContactPointPhone__dlm",
+              "attributesConfig": {
+                "attributes": [
+                  {
+                    "label": "Telephone Number",
+                    "name": "ssot__TelephoneNumber__c"
+                  }
+                ]
+              },
+              "queryPathConfig": {
+                "configs": [
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedAccount__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__PartyId__c",
+                          "objectName": "UnifiedContactPointPhone__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedContactPointPhone__dlm"
+                        },
+                        {
+                          "fieldName": "UnifiedRecordId__c",
+                          "objectName": "ContactPointPhoneIdentityLink__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "SourceRecordId__c",
+                          "objectName": "ContactPointPhoneIdentityLink__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "ssot__ContactPointPhone__dlm"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "sourcesConfig": {
+                "contactPointSources": [
+                  {
+                    "dataSourcePreference": "ANY",
+                    "dataSourcePriority": 1,
+                    "name": "Any"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "AccessPolicy",
+      "name": "restrict_sensitive_fields",
+      "properties": {
+        "name": "RestrictSensitiveFields",
+        "label": "Restrict Sensitive Fields",
+        "description": "Restricts read access to sensitive account address records from non-privileged readers."
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "AccessPolicyRule",
+      "name": "mask_account_billing_address",
+      "properties": {
+        "policyName": "${AccessPolicy.restrict_sensitive_fields.apiName}",
+        "name": "Restrict_BillingAddress",
+        "label": "Restrict Billing Address",
+        "category": "RECORD_POLICY_RULE_DEFINITION",
+        "effect": "Forbid",
+        "action": ["Read"],
+        "resourceScopeType": "RECORD",
+        "principalScopeType": "ANY",
+        "resourceDomains": ["${DataModelObject.ssot_contact_point_address_dmo.apiName}"],
+        "ruleConsumer": "DATACLOUD"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "TagAssignment",
+      "name": "tag_account_phone_pii",
+      "dependsOn": ["DataStream.account_stream"],
+      "properties": {
+        "tagFullyQualifiedName": "PersonalData.PII.PhoneNumber",
+        "objectName": "${DataStream.account_stream.dlApiName}",
+        "fieldName": "phone__c"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "TagAssignment",
+      "name": "tag_vehicle_vin_sensitive",
+      "dependsOn": ["DataStream.vehicle_stream"],
+      "properties": {
+        "tagFullyQualifiedName": "PersonalData.PII.VIN",
+        "objectName": "${DataStream.vehicle_stream.dlApiName}",
+        "fieldName": "vin__c"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "ClassificationAssignment",
+      "name": "classify_account_phone_as_pii",
+      "dependsOn": ["TagAssignment.tag_account_phone_pii"],
+      "properties": {
+        "classificationFullyQualifiedName": "DataCategorization.DataCompliance.PII",
+        "tagFullyQualifiedName": "PersonalData.PII.PhoneNumber"
+      }
+    }
+  ]
+}

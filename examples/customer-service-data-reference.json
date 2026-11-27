@@ -1,0 +1,44 @@
+{
+  "useCase": "customer-service",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "data",
+      "type": "DataModelObject",
+      "name": "existing_account_dmo",
+      "lookup": { "name": "Account_DMO__dlm" }
+    },
+    {
+      "kind": "resource",
+      "type": "Segment",
+      "name": "vip_customers_segment",
+      "properties": {
+        "displayName": "VIP Customers",
+        "description": "High-value accounts",
+        "segmentOnApiName": "${DataModelObject.existing_account_dmo.apiName}",
+        "segmentType": "Dynamic",
+        "developerName": "vip_customers_segment"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "TagAssignment",
+      "name": "tag_account_dmo_billing_address_pii",
+      "properties": {
+        "tagFullyQualifiedName": "PersonalData.Location.StreetAddress",
+        "objectName": "${DataModelObject.existing_account_dmo.apiName}",
+        "fieldName": "BillingAddress"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "ClassificationAssignment",
+      "name": "classify_account_billing_address_as_pii",
+      "dependsOn": ["TagAssignment.tag_account_dmo_billing_address_pii"],
+      "properties": {
+        "classificationFullyQualifiedName": "DataCategorization.DataCompliance.PII",
+        "tagFullyQualifiedName": "PersonalData.Location.StreetAddress"
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360GraphResult",
+  "definitions": {
+    "Data360GraphResult": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/GraphJson"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "dot": {
+              "type": "string"
+            }
+          },
+          "required": ["dot"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "GraphJson": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            },
+            "required": ["from", "to"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["nodes", "edges"],
+      "additionalProperties": false
+    }
+  }
+}

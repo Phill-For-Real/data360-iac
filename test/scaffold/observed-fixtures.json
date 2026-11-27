@@ -1,0 +1,455 @@
+{
+  "Connection": {
+    "connectorType": "IngestApi",
+    "name": "source_api",
+    "label": "Source",
+    "id": "connection-record"
+  },
+  "DataStream": {
+    "name": "stream_api",
+    "label": "Account Stream",
+    "connectionId": "source_api",
+    "datastreamType": "INGEST_API",
+    "dataAccessMode": "Ingest",
+    "connectorInfo": {
+      "connectorType": "IngestApi",
+      "connectorDetails": {
+        "name": "source_api",
+        "events": ["account_dlo"]
+      }
+    },
+    "dataLakeObjectInfo": {
+      "label": "Account DLO",
+      "name": "source_dlo__dll",
+      "category": "Profile",
+      "dataspaceInfo": [
+        {
+          "name": "default"
+        }
+      ],
+      "dataLakeFieldInputRepresentations": [
+        {
+          "name": "accountId",
+          "label": "Account ID",
+          "dataType": "Text",
+          "isPrimaryKey": true
+        },
+        {
+          "name": "accountName",
+          "label": "Account Name",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "accountNumber",
+          "label": "Account Number",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "description",
+          "label": "Account Description",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "accountType",
+          "label": "Account Type",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "industry",
+          "label": "Primary Industry",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "annualRevenue",
+          "label": "Annual Revenue",
+          "dataType": "Number",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "website",
+          "label": "Website",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "numberOfEmployees",
+          "label": "Number of Employees",
+          "dataType": "Number",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "accountSource",
+          "label": "Account Source",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "isActive",
+          "label": "Is Active",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "billingPostalCode",
+          "label": "Billing Postal Code",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "billingStreetAddress",
+          "label": "Billing Street Address",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "billingCity",
+          "label": "Billing City",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "billingCountry",
+          "label": "Billing Country",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "dataType": "Text",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "createdDate",
+          "label": "Created Date",
+          "dataType": "DateTime",
+          "isPrimaryKey": false
+        },
+        {
+          "name": "lastModifiedDate",
+          "label": "Last Modified Date",
+          "dataType": "DateTime",
+          "isPrimaryKey": false
+        }
+      ]
+    },
+    "mappings": [],
+    "refreshConfig": {
+      "refreshMode": "UPSERT"
+    },
+    "id": "response-only-id",
+    "recordId": "stream-record",
+    "dataSource": "source_api",
+    "sourceFields": [
+      {
+        "name": "accountId",
+        "datatype": "Text"
+      },
+      {
+        "name": "accountName",
+        "datatype": "Text"
+      },
+      {
+        "name": "accountNumber",
+        "datatype": "Text"
+      },
+      {
+        "name": "description",
+        "datatype": "Text"
+      },
+      {
+        "name": "accountType",
+        "datatype": "Text"
+      },
+      {
+        "name": "industry",
+        "datatype": "Text"
+      },
+      {
+        "name": "annualRevenue",
+        "datatype": "Number"
+      },
+      {
+        "name": "website",
+        "datatype": "Text"
+      },
+      {
+        "name": "numberOfEmployees",
+        "datatype": "Number"
+      },
+      {
+        "name": "accountSource",
+        "datatype": "Text"
+      },
+      {
+        "name": "isActive",
+        "datatype": "Text"
+      },
+      {
+        "name": "billingPostalCode",
+        "datatype": "Text"
+      },
+      {
+        "name": "billingStreetAddress",
+        "datatype": "Text"
+      },
+      {
+        "name": "billingCity",
+        "datatype": "Text"
+      },
+      {
+        "name": "billingCountry",
+        "datatype": "Text"
+      },
+      {
+        "name": "phone",
+        "datatype": "Text"
+      },
+      {
+        "name": "createdDate",
+        "datatype": "DateTime"
+      },
+      {
+        "name": "lastModifiedDate",
+        "datatype": "DateTime"
+      }
+    ]
+  },
+  "DataModelObjectMapping": {
+    "sourceEntityDeveloperName": "source_dlo__dll",
+    "targetEntityDeveloperName": "ssot__Account__dlm",
+    "developerName": "mapping_api",
+    "fieldMappings": [
+      {
+        "sourceFieldDeveloperName": "accountId__c",
+        "targetFieldDeveloperName": "ssot__Id__c"
+      },
+      {
+        "sourceFieldDeveloperName": "accountName__c",
+        "targetFieldDeveloperName": "ssot__Name__c"
+      },
+      {
+        "sourceFieldDeveloperName": "accountNumber__c",
+        "targetFieldDeveloperName": "ssot__Number__c"
+      },
+      {
+        "sourceFieldDeveloperName": "description__c",
+        "targetFieldDeveloperName": "ssot__Description__c"
+      },
+      {
+        "sourceFieldDeveloperName": "accountType__c",
+        "targetFieldDeveloperName": "ssot__AccountType__c"
+      },
+      {
+        "sourceFieldDeveloperName": "industry__c",
+        "targetFieldDeveloperName": "ssot__PrimaryIndustry__c"
+      },
+      {
+        "sourceFieldDeveloperName": "annualRevenue__c",
+        "targetFieldDeveloperName": "ssot__AnnualRevenueAmount__c"
+      },
+      {
+        "sourceFieldDeveloperName": "website__c",
+        "targetFieldDeveloperName": "ssot__WebsiteAddr__c"
+      },
+      {
+        "sourceFieldDeveloperName": "numberOfEmployees__c",
+        "targetFieldDeveloperName": "ssot__EmployeeCount__c"
+      },
+      {
+        "sourceFieldDeveloperName": "accountSource__c",
+        "targetFieldDeveloperName": "ssot__AccountSource__c"
+      },
+      {
+        "sourceFieldDeveloperName": "isActive__c",
+        "targetFieldDeveloperName": "ssot__IsActive__c"
+      },
+      {
+        "sourceFieldDeveloperName": "createdDate__c",
+        "targetFieldDeveloperName": "ssot__CreatedDate__c"
+      },
+      {
+        "sourceFieldDeveloperName": "lastModifiedDate__c",
+        "targetFieldDeveloperName": "ssot__LastModifiedDate__c"
+      }
+    ]
+  },
+  "CalculatedInsight": {
+    "apiName": "VehicleHealthScore__cio",
+    "displayName": "Vehicle Health Score",
+    "definitionType": "CALCULATED_METRIC",
+    "dataSpaceName": "default",
+    "description": "Health score per vehicle based on fault event rate",
+    "expression": "SELECT COUNT(*) FROM ssot__Account__dlm WHERE value = &#39;&amp;lt;&#39;",
+    "publishScheduleInterval": "SIX",
+    "publishScheduleStartDateTime": "2026-01-01T00:00",
+    "dataSpace": "default",
+    "calculatedInsightStatus": "ACTIVE"
+  },
+  "IdentityResolutionRuleset": {
+    "label": "Account Identity Resolution",
+    "description": "Resolves duplicate accounts",
+    "configurationType": "Account",
+    "rulesetId": "",
+    "doesRunAutomatically": true,
+    "matchRules": [
+      {
+        "label": "fuzzy_name_and_exact_website",
+        "criteria": [
+          {
+            "entityName": "ssot__Account__dlm",
+            "fieldName": "ssot__Name__c",
+            "matchMethodType": "fuzzy",
+            "shouldMatchOnBlank": false
+          },
+          {
+            "entityName": "ssot__Account__dlm",
+            "fieldName": "ssot__WebsiteAddr__c",
+            "matchMethodType": "exact",
+            "shouldMatchOnBlank": false
+          }
+        ]
+      }
+    ],
+    "reconciliationRules": [
+      {
+        "entityName": "ssot__Account__dlm",
+        "fields": [],
+        "ruleType": "lastupdated",
+        "shouldIgnoreEmptyValue": true,
+        "sources": []
+      }
+    ],
+    "id": "ruleset-record",
+    "rulesetStatus": "PUBLISHED",
+    "lastJobStatus": "IN_PROGRESS"
+  },
+  "Activation": {
+    "name": "activation_api",
+    "description": "Activates the High Value Accounts segment to the Data Cloud DMO target, carrying the unified account id/name and a related contact email.",
+    "dataSpaceName": "default",
+    "segmentApiName": "segment_api",
+    "activationTargetName": "target_api",
+    "activationTargetSubjectConfig": {
+      "developerName": "UnifiedAccount__dlm"
+    },
+    "refreshType": "INCREMENTAL",
+    "attributesConfig": {
+      "attributes": [
+        {
+          "dataSourceType": "Text",
+          "entityName": "UnifiedAccount__dlm",
+          "label": "Unified Account Id",
+          "name": "ssot__Id__c",
+          "queryPathConfig": {
+            "configs": []
+          },
+          "referenceAttributeName": "Id",
+          "source": "DIRECT",
+          "type": "MODEL"
+        },
+        {
+          "dataSourceType": "Text",
+          "entityName": "UnifiedAccount__dlm",
+          "label": "Account Name",
+          "name": "ssot__Name__c",
+          "queryPathConfig": {
+            "configs": []
+          },
+          "referenceAttributeName": "Name__c",
+          "source": "DIRECT",
+          "type": "MODEL"
+        }
+      ]
+    },
+    "contactPointsConfig": {
+      "contactPoints": [
+        {
+          "type": "EMAIL",
+          "queryPathConfig": {
+            "configs": [
+              {
+                "queryPath": [
+                  {
+                    "fieldName": "ssot__Id__c",
+                    "objectName": "UnifiedAccount__dlm"
+                  },
+                  {
+                    "fieldName": "ssot__PartyId__c",
+                    "objectName": "UnifiedContactPointEmail__dlm"
+                  }
+                ]
+              },
+              {
+                "queryPath": [
+                  {
+                    "fieldName": "ssot__Id__c",
+                    "objectName": "UnifiedContactPointEmail__dlm"
+                  },
+                  {
+                    "fieldName": "UnifiedRecordId__c",
+                    "objectName": "ContactPointEmailIdentityLink__dlm"
+                  }
+                ]
+              },
+              {
+                "queryPath": [
+                  {
+                    "fieldName": "SourceRecordId__c",
+                    "objectName": "ContactPointEmailIdentityLink__dlm"
+                  },
+                  {
+                    "fieldName": "ssot__Id__c",
+                    "objectName": "ssot__ContactPointEmail__dlm"
+                  }
+                ]
+              }
+            ]
+          },
+          "contactPointEntityName": "ssot__ContactPointEmail__dlm",
+          "fieldConfig": {
+            "contactPointFields": [
+              {
+                "label": "Email Address",
+                "name": "ssot__EmailAddress__c"
+              }
+            ]
+          },
+          "sourceConfig": {
+            "contactPointSources": [
+              {
+                "dataSourcePreference": "ANY",
+                "dataSourcePriority": 1,
+                "name": "Any"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "id": "activation-record",
+    "status": "ACTIVE"
+  },
+  "AccessPolicy": {
+    "name": "policy_api",
+    "label": "Restrict Sensitive Fields",
+    "description": "Restricts read access to sensitive account address records from non-privileged readers."
+  },
+  "AccessPolicyRule": {
+    "policyName": "policy_api",
+    "name": "Restrict_BillingAddress",
+    "label": "Restrict Billing Address",
+    "category": "RECORD_POLICY_RULE_DEFINITION",
+    "effect": "Forbid",
+    "action": ["Read"],
+    "resourceScopeType": "RECORD",
+    "principalScopeType": "ANY",
+    "resourceDomains": ["ssot__Account__dlm"],
+    "ruleConsumer": "DATACLOUD"
+  }
+}

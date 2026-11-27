@@ -1,0 +1,148 @@
+[
+  {
+    "alias": [],
+    "command": "data360:apply",
+    "flagAliases": [],
+    "flagChars": ["f", "o"],
+    "flags": [
+      "adopt",
+      "approve-cascade",
+      "auto-approve",
+      "baseline-intent",
+      "data-space",
+      "flags-dir",
+      "json",
+      "manifest",
+      "planfile",
+      "step",
+      "target-org"
+    ],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:destroy",
+    "flagAliases": [],
+    "flagChars": ["f", "o"],
+    "flags": [
+      "approve-cascade",
+      "auto-approve",
+      "data-space",
+      "flags-dir",
+      "json",
+      "manifest",
+      "reconcile-only",
+      "review-file",
+      "review-out",
+      "step",
+      "target-org"
+    ],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:discover",
+    "flagAliases": [],
+    "flagChars": ["d", "o"],
+    "flags": ["data-space", "flags-dir", "json", "output-dir", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:graph",
+    "flagAliases": [],
+    "flagChars": ["f"],
+    "flags": ["flags-dir", "format", "json", "manifest"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:import",
+    "flagAliases": [],
+    "flagChars": ["n", "o", "t"],
+    "flags": ["api-name", "data-space", "flags-dir", "json", "name", "target-org", "type"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:init",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["data-space", "flags-dir", "json", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:operations",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["bind-identity", "data-space", "flags-dir", "json", "reconcile", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:plan",
+    "flagAliases": [],
+    "flagChars": ["f", "o"],
+    "flags": ["data-space", "detailed-exitcode", "flags-dir", "json", "manifest", "out", "step", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:refresh",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["data-space", "flags-dir", "json", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:scaffold",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": [
+      "data-space",
+      "flags-dir",
+      "from-discovery",
+      "json",
+      "out",
+      "overwrite",
+      "select",
+      "target-org",
+      "use-case"
+    ],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:state:list",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["data-space", "flags-dir", "json", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:state:rm",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["data-space", "flags-dir", "json", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:state:show",
+    "flagAliases": [],
+    "flagChars": ["o"],
+    "flags": ["data-space", "flags-dir", "json", "target-org"],
+    "plugin": "data360-iac"
+  },
+  {
+    "alias": [],
+    "command": "data360:validate",
+    "flagAliases": [],
+    "flagChars": ["f"],
+    "flags": ["flags-dir", "json", "manifest"],
+    "plugin": "data360-iac"
+  }
+]

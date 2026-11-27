@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ScaffoldResult",
+  "definitions": {
+    "ScaffoldResult": {
+      "type": "object",
+      "properties": {
+        "manifestPath": {
+          "type": "string"
+        },
+        "reportPath": {
+          "type": "string"
+        },
+        "report": {
+          "$ref": "#/definitions/ScaffoldReport"
+        }
+      },
+      "required": ["reportPath", "report"],
+      "additionalProperties": false
+    },
+    "ScaffoldReport": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["offline", "live"]
+            },
+            "orgId": {
+              "type": "string"
+            },
+            "dataSpace": {
+              "type": "string"
+            }
+          },
+          "required": ["mode"],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "string"
+        },
+        "selections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "managed": {
+                "type": "boolean"
+              }
+            },
+            "required": ["key", "managed"],
+            "additionalProperties": false
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "resolved": {
+                "type": "boolean"
+              }
+            },
+            "required": ["key", "path", "resolved"],
+            "additionalProperties": false
+          }
+        },
+        "conversions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "changes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "omittedFields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["key", "changes", "omittedFields"],
+            "additionalProperties": false
+          }
+        },
+        "secretRequirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "environmentVariable": {
+                "type": "string"
+              }
+            },
+            "required": ["key", "path", "environmentVariable"],
+            "additionalProperties": false
+          }
+        },
+        "omittedTrackedResources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "version",
+        "source",
+        "scope",
+        "selections",
+        "dependencies",
+        "references",
+        "conversions",
+        "secretRequirements",
+        "omittedTrackedResources",
+        "limits",
+        "blockers"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "useCase": "asset-maintenance",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "Segment",
+      "name": "high_value_accounts_segment",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "displayName": "High Value Accounts",
+        "description": "Unified accounts with above-threshold annual revenue, for premium service outreach. Built on UnifiedAccount__dlm.",
+        "segmentOnApiName": "UnifiedAccount__dlm",
+        "segmentType": "Dbt",
+        "developerName": "high_value_accounts_segment",
+        "includeDbt": {
+          "models": {
+            "models": [
+              {
+                "name": "high_value_accounts",
+                "sql": "select UnifiedAccount__dlm.ssot__Id__c from UnifiedAccount__dlm where UnifiedAccount__dlm.ssot__AnnualRevenueAmount__c > 1000000"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Segment",
+      "name": "recently_active_accounts_segment",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "displayName": "Recently Active Accounts",
+        "description": "Unified accounts with recent activity, for proactive maintenance follow-up. Built on UnifiedAccount__dlm.",
+        "segmentOnApiName": "UnifiedAccount__dlm",
+        "segmentType": "Dbt",
+        "developerName": "recently_active_accounts_segment",
+        "includeDbt": {
+          "models": {
+            "models": [
+              {
+                "name": "recently_active_accounts",
+                "sql": "select UnifiedAccount__dlm.ssot__Id__c from UnifiedAccount__dlm where UnifiedAccount__dlm.ssot__LastActivityDate__c > NOW() - INTERVAL '90' DAY"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "ActivationTarget",
+      "name": "data_cloud_activation_target",
+      "properties": {
+        "dataSpaceName": "default",
+        "name": "asset_maintenance_dmo_target",
+        "description": "Writes activation audiences back into Data Cloud as DMOs -- no external credentials needed.",
+        "platformType": "DataCloud",
+        "connector": {}
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Activation",
+      "name": "high_value_accounts_activation",
+      "dependsOn": ["IdentityResolutionRuleset.account_identity_resolution"],
+      "properties": {
+        "name": "high_value_accounts_activation",
+        "description": "Activates the High Value Accounts segment to the Data Cloud DMO target, carrying the unified account id/name and a related contact email.",
+        "dataSpaceName": "default",
+        "segmentApiName": "${Segment.high_value_accounts_segment.apiName}",
+        "activationTargetName": "${ActivationTarget.data_cloud_activation_target.apiName}",
+        "activationTargetSubjectConfig": {
+          "developerName": "UnifiedAccount__dlm"
+        },
+        "refreshType": "INCREMENTAL",
+        "attributesConfig": {
+          "attributes": [
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Unified Account Id",
+              "name": "ssot__Id__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Id",
+              "source": "DIRECT",
+              "type": "MODEL"
+            },
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Account Name",
+              "name": "ssot__Name__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Name__c",
+              "source": "DIRECT",
+              "type": "MODEL"
+            }
+          ]
+        },
+        "contactPointsConfig": {
+          "contactPoints": [
+            {
+              "type": "EMAIL",
+              "entityName": "ssot__ContactPointEmail__dlm",
+              "attributesConfig": {
+                "attributes": [
+                  {
+                    "label": "Email Address",
+                    "name": "ssot__EmailAddress__c"
+                  }
+                ]
+              },
+              "queryPathConfig": {
+                "configs": [
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedAccount__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__PartyId__c",
+                          "objectName": "UnifiedContactPointEmail__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedContactPointEmail__dlm"
+                        },
+                        {
+                          "fieldName": "UnifiedRecordId__c",
+                          "objectName": "ContactPointEmailIdentityLink__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "SourceRecordId__c",
+                          "objectName": "ContactPointEmailIdentityLink__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "ssot__ContactPointEmail__dlm"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "sourcesConfig": {
+                "contactPointSources": [
+                  {
+                    "dataSourcePreference": "ANY",
+                    "dataSourcePriority": 1,
+                    "name": "Any"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Activation",
+      "name": "recently_active_accounts_activation",
+      "dependsOn": [
+        "IdentityResolutionRuleset.account_identity_resolution",
+        "Activation.high_value_accounts_activation"
+      ],
+      "properties": {
+        "name": "recently_active_accounts_activation",
+        "description": "Activates the Recently Active Accounts segment to the Data Cloud DMO target, carrying the unified account id and a related phone number.",
+        "dataSpaceName": "default",
+        "segmentApiName": "${Segment.recently_active_accounts_segment.apiName}",
+        "activationTargetName": "${ActivationTarget.data_cloud_activation_target.apiName}",
+        "activationTargetSubjectConfig": {
+          "developerName": "UnifiedAccount__dlm"
+        },
+        "refreshType": "INCREMENTAL",
+        "attributesConfig": {
+          "attributes": [
+            {
+              "dataSourceType": "Text",
+              "entityName": "UnifiedAccount__dlm",
+              "label": "Unified Account Id",
+              "name": "ssot__Id__c",
+              "queryPathConfig": {
+                "configs": []
+              },
+              "referenceAttributeName": "Id",
+              "source": "DIRECT",
+              "type": "MODEL"
+            }
+          ]
+        },
+        "contactPointsConfig": {
+          "contactPoints": [
+            {
+              "type": "PHONE",
+              "entityName": "ssot__ContactPointPhone__dlm",
+              "attributesConfig": {
+                "attributes": [
+                  {
+                    "label": "Telephone Number",
+                    "name": "ssot__TelephoneNumber__c"
+                  }
+                ]
+              },
+              "queryPathConfig": {
+                "configs": [
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedAccount__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__PartyId__c",
+                          "objectName": "UnifiedContactPointPhone__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "UnifiedContactPointPhone__dlm"
+                        },
+                        {
+                          "fieldName": "UnifiedRecordId__c",
+                          "objectName": "ContactPointPhoneIdentityLink__dlm"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "queryPaths": {
+                      "queryPath": [
+                        {
+                          "fieldName": "SourceRecordId__c",
+                          "objectName": "ContactPointPhoneIdentityLink__dlm"
+                        },
+                        {
+                          "fieldName": "ssot__Id__c",
+                          "objectName": "ssot__ContactPointPhone__dlm"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "sourcesConfig": {
+                "contactPointSources": [
+                  {
+                    "dataSourcePreference": "ANY",
+                    "dataSourcePriority": 1,
+                    "name": "Any"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

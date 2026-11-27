@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360DestroyResult",
+  "definitions": {
+    "Data360DestroyResult": {
+      "$ref": "#/definitions/DestroyResult"
+    },
+    "DestroyResult": {
+      "type": "object",
+      "properties": {
+        "destroyed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pending": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "phase": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "observedStatus": {
+                "type": "string"
+              },
+              "lastFailure": {
+                "$ref": "#/definitions/DeletionFailure"
+              }
+            },
+            "required": ["key", "id", "phase", "reason"],
+            "additionalProperties": false
+          }
+        },
+        "failure": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "error": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "stack": {
+                  "type": "string"
+                }
+              },
+              "required": ["name", "message"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["key", "error"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["destroyed"],
+      "additionalProperties": false
+    },
+    "DeletionFailure": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "number"
+        },
+        "timeoutMs": {
+          "type": "number"
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    }
+  }
+}

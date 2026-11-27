@@ -1,0 +1,65 @@
+{
+  "useCase": "asset-maintenance",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "AccessPolicy",
+      "name": "restrict_sensitive_fields",
+      "properties": {
+        "name": "RestrictSensitiveFields",
+        "label": "Restrict Sensitive Fields",
+        "description": "Restricts read access to sensitive account address records from non-privileged readers."
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "AccessPolicyRule",
+      "name": "mask_account_billing_address",
+      "properties": {
+        "policyName": "${AccessPolicy.restrict_sensitive_fields.apiName}",
+        "name": "Restrict_BillingAddress",
+        "label": "Restrict Billing Address",
+        "category": "RECORD_POLICY_RULE_DEFINITION",
+        "effect": "Forbid",
+        "action": ["Read"],
+        "resourceScopeType": "RECORD",
+        "principalScopeType": "ANY",
+        "resourceDomains": ["${DataModelObject.ssot_contact_point_address_dmo.apiName}"],
+        "ruleConsumer": "DATACLOUD"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "TagAssignment",
+      "name": "tag_account_phone_pii",
+      "dependsOn": ["DataStream.account_stream"],
+      "properties": {
+        "tagFullyQualifiedName": "PersonalData.PII.PhoneNumber",
+        "objectName": "${DataStream.account_stream.dlApiName}",
+        "fieldName": "phone__c"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "TagAssignment",
+      "name": "tag_vehicle_vin_sensitive",
+      "dependsOn": ["DataStream.vehicle_stream"],
+      "properties": {
+        "tagFullyQualifiedName": "PersonalData.PII.VIN",
+        "objectName": "${DataStream.vehicle_stream.dlApiName}",
+        "fieldName": "vin__c"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "ClassificationAssignment",
+      "name": "classify_account_phone_as_pii",
+      "dependsOn": ["TagAssignment.tag_account_phone_pii"],
+      "properties": {
+        "classificationFullyQualifiedName": "DataCategorization.DataCompliance.PII",
+        "tagFullyQualifiedName": "PersonalData.PII.PhoneNumber"
+      }
+    }
+  ]
+}

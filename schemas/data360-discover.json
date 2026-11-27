@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360DiscoverResult",
+  "definitions": {
+    "Data360DiscoverResult": {
+      "type": "object",
+      "properties": {
+        "outputDir": {
+          "type": "string"
+        },
+        "fetched": {
+          "type": "number"
+        },
+        "skipped": {
+          "type": "number"
+        },
+        "errored": {
+          "type": "number"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DiscoverEndpointResult"
+          }
+        }
+      },
+      "required": ["outputDir", "fetched", "skipped", "errored", "results"],
+      "additionalProperties": false
+    },
+    "DiscoverEndpointResult": {
+      "type": "object",
+      "properties": {
+        "folder": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["fetched", "skipped", "error"]
+        },
+        "itemCount": {
+          "type": "number",
+          "description": "Best-effort: the length of the first array found anywhere in the written response body (or, for a fanned-out endpoint, the number of discovered entities it was queried once per)."
+        },
+        "skipReason": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "filePath": {
+          "type": "string"
+        }
+      },
+      "required": ["folder", "fileName", "path", "status"],
+      "additionalProperties": false
+    }
+  }
+}

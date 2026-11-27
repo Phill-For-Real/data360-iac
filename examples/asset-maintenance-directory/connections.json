@@ -1,0 +1,36 @@
+{
+  "useCase": "asset-maintenance",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "account",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "account",
+        "label": "Account"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "vehicle",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "vehicle",
+        "label": "Vehicle"
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "vehicle_telematics_event",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "vehicle_telematics_event",
+        "label": "Vehicle Telematics Event"
+      }
+    }
+  ]
+}

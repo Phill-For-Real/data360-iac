@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360StateListResult",
+  "definitions": {
+    "Data360StateListResult": {
+      "type": "object",
+      "properties": {
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StateResourceEntry"
+          }
+        }
+      },
+      "required": ["resources"],
+      "additionalProperties": false
+    },
+    "StateResourceEntry": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["resource", "data"]
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "declaredBy": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "apiName": {
+          "type": "string"
+        },
+        "propertiesHash": {
+          "type": "string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "adopted": {
+          "type": "boolean"
+        },
+        "lastAppliedAt": {
+          "type": "string"
+        },
+        "lifecyclePending": {
+          "type": "string",
+          "enum": ["ready", "action-dispatching", "action-confirmed"]
+        },
+        "lifecycleActionPath": {
+          "type": "string"
+        },
+        "deletionCascade": {
+          "$ref": "#/definitions/CascadeReview"
+        },
+        "deletionPending": {
+          "type": "string",
+          "enum": ["dispatching", "acknowledged"]
+        },
+        "deletionFailure": {
+          "$ref": "#/definitions/DeletionFailure"
+        },
+        "intentVersion": {
+          "type": "number",
+          "const": 1
+        },
+        "lastAppliedIntent": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "managedPaths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protected": {
+          "type": "boolean"
+        },
+        "outputs": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      },
+      "required": ["kind", "type", "name", "dependencies"],
+      "additionalProperties": false
+    },
+    "CascadeReview": {
+      "type": "object",
+      "properties": {
+        "parentKey": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": "string"
+        },
+        "scopeHash": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "managedKey": {
+                "type": "string"
+              },
+              "protected": {
+                "type": "boolean"
+              },
+              "fingerprint": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "name", "protected", "fingerprint"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["parentKey", "parentId", "scopeHash", "rules"],
+      "additionalProperties": false
+    },
+    "DeletionFailure": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "number"
+        },
+        "timeoutMs": {
+          "type": "number"
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    }
+  }
+}

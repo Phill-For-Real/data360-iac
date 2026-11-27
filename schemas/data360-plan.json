@@ -1,0 +1,233 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360PlanResult",
+  "definitions": {
+    "Data360PlanResult": {
+      "$ref": "#/definitions/Plan"
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 2
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "orgId": {
+              "type": "string"
+            },
+            "dataSpace": {
+              "type": "string"
+            },
+            "lineage": {
+              "type": "string"
+            },
+            "serial": {
+              "type": "number"
+            },
+            "manifestHash": {
+              "type": "string"
+            }
+          },
+          "required": ["orgId", "dataSpace", "lineage", "serial", "manifestHash"],
+          "additionalProperties": false
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SafetyBlocker"
+          }
+        },
+        "cascades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CascadeReview"
+          }
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlannedChange"
+          }
+        },
+        "adoptionCandidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdoptionCandidate"
+          }
+        },
+        "destroys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlannedChange"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlanningWarning"
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "create": {
+              "type": "number"
+            },
+            "update": {
+              "type": "number"
+            },
+            "replace": {
+              "type": "number"
+            },
+            "destroy": {
+              "type": "number"
+            },
+            "noOp": {
+              "type": "number"
+            },
+            "total": {
+              "type": "number"
+            }
+          },
+          "required": ["create", "update", "replace", "destroy", "noOp", "total"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["changes", "adoptionCandidates", "destroys", "warnings", "summary"],
+      "additionalProperties": false
+    },
+    "SafetyBlocker": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["key", "code", "message"],
+      "additionalProperties": false
+    },
+    "CascadeReview": {
+      "type": "object",
+      "properties": {
+        "parentKey": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": "string"
+        },
+        "scopeHash": {
+          "type": "string"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "managedKey": {
+                "type": "string"
+              },
+              "protected": {
+                "type": "boolean"
+              },
+              "fingerprint": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "name", "protected", "fingerprint"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["parentKey", "parentId", "scopeHash", "rules"],
+      "additionalProperties": false
+    },
+    "PlannedChange": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "action": {
+          "$ref": "#/definitions/ChangeAction"
+        },
+        "cascadeWarning": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Set when `action` is 'replace' and this resource has downstream dependents that will be affected."
+        }
+      },
+      "required": ["key", "type", "name", "action"],
+      "additionalProperties": false
+    },
+    "ChangeAction": {
+      "type": "string",
+      "enum": ["create", "update-in-place", "replace", "no-op"]
+    },
+    "AdoptionCandidate": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "liveId": {
+          "type": "string"
+        },
+        "cleanAdopt": {
+          "type": "boolean",
+          "description": "True when the live object's properties already match the manifest's declared properties exactly."
+        }
+      },
+      "required": ["key", "type", "name", "liveId", "cleanAdopt"],
+      "additionalProperties": false
+    },
+    "PlanningWarning": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["key", "type", "name", "message"],
+      "additionalProperties": false,
+      "description": "One resource's adoption/refresh lookup raised an error instead of returning found-or-not-found (e.g. the real endpoint 404s for a resource type that isn't provisioned/enabled in this org). The resource is still planned as a `create` (or left at its prior tracked action, for a refresh failure) -- one adapter's live-state check failing is never allowed to abort planning for every other resource in the manifest. The real API gets the final say at apply time."
+    }
+  }
+}

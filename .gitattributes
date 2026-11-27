@@ -1,0 +1,6 @@
+# Development notes and audit evidence stay in the private repository.
+/API_SPECS_NEEDED.md export-ignore
+/MARKETING.md export-ignore
+/PUBLIC_RELEASE_PLAN.md export-ignore
+/extract_connect_api.py export-ignore
+/extract_full.py export-ignore

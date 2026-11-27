@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Data360ApplyResult",
+  "definitions": {
+    "Data360ApplyResult": {
+      "$ref": "#/definitions/ApplyResult"
+    },
+    "ApplyResult": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "failure": {
+          "$ref": "#/definitions/ApplyFailure"
+        },
+        "haltedAt": {
+          "type": "string"
+        }
+      },
+      "required": ["completed"],
+      "additionalProperties": false
+    },
+    "ApplyFailure": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "stack": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "message"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["key", "error"],
+      "additionalProperties": false
+    }
+  }
+}

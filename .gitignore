@@ -1,0 +1,80 @@
+# -- CLEAN
+tmp/
+# use yarn by default, so ignore npm
+package-lock.json
+
+# never checkin npm config
+.npmrc
+
+# debug logs
+npm-error.log
+yarn-error.log
+
+
+# compile source
+lib
+
+# test artifacts
+*xunit.xml
+*checkstyle.xml
+*unitcoverage
+.nyc_output
+coverage
+test_session*
+
+# generated docs
+docs
+
+# ignore sfdx-trust files
+*.tgz
+*.sig
+package.json.bak.
+
+
+npm-shrinkwrap.json
+oclif.manifest.json
+oclif.lock
+
+# -- CLEAN ALL
+*.tsbuildinfo
+.eslintcache
+.wireit
+node_modules
+
+# --
+# put files here you don't want cleaned with sf-clean
+
+data360-discovery/
+snapshots/
+.data360/
+data360.*.state.json*
+
+# Local authentication, credentials, and agent configuration
+.sf/
+.sfdx/
+.aws/
+.codex/
+.agents/
+.claude/
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials.json
+service-account*.json
+*.log
+__pycache__/
+
+# os specific files
+.DS_Store
+.idea
+.info
+
+# Generated reports can contain source-org and local ownership metadata
+*.report.json

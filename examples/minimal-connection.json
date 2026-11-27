@@ -1,0 +1,16 @@
+{
+  "useCase": "minimal-smoke-test",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "Connection",
+      "name": "mobile_users",
+      "properties": {
+        "connectorType": "IngestApi",
+        "name": "mobile_users",
+        "label": "Mobile Usrs"
+      }
+    }
+  ]
+}

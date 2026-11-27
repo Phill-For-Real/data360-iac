@@ -1,0 +1,61 @@
+{
+  "useCase": "asset-maintenance",
+  "dataSpace": "default",
+  "resources": [
+    {
+      "kind": "resource",
+      "type": "IdentityResolutionRuleset",
+      "name": "account_identity_resolution",
+      "properties": {
+        "label": "Account Identity Resolution",
+        "description": "Resolves duplicate accounts",
+        "configurationType": "Account",
+        "rulesetId": "",
+        "doesRunAutomatically": true,
+        "matchRules": [
+          {
+            "label": "fuzzy_name_and_exact_website",
+            "criteria": [
+              {
+                "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+                "fieldName": "ssot__Name__c",
+                "matchMethodType": "fuzzy",
+                "shouldMatchOnBlank": false
+              },
+              {
+                "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+                "fieldName": "ssot__WebsiteAddr__c",
+                "matchMethodType": "exact",
+                "shouldMatchOnBlank": false
+              }
+            ]
+          }
+        ],
+        "reconciliationRules": [
+          {
+            "entityName": "${DataModelObject.ssot_account_dmo.apiName}",
+            "fields": [],
+            "ruleType": "lastupdated",
+            "shouldIgnoreEmptyValue": true,
+            "sources": []
+          }
+        ]
+      }
+    },
+    {
+      "kind": "resource",
+      "type": "CalculatedInsight",
+      "name": "vehicle_health_score_ci",
+      "properties": {
+        "apiName": "VehicleHealthScore",
+        "displayName": "Vehicle Health Score",
+        "definitionType": "CALCULATED_METRIC",
+        "dataSpaceName": "default",
+        "description": "Health score per vehicle based on fault event rate",
+        "expression": "SELECT ssot__VehicleTelematicsEvent__dlm.ssot__VehicleId__c AS VehicleId__c, SUM(CASE WHEN ssot__VehicleTelematicsEvent__dlm.ssot__EventCategory__c = 'Fault' THEN 1 ELSE 0 END) AS FaultCount__c, COUNT(ssot__VehicleTelematicsEvent__dlm.ssot__Id__c) AS TotalEventCount__c FROM ssot__VehicleTelematicsEvent__dlm GROUP BY ssot__VehicleTelematicsEvent__dlm.ssot__VehicleId__c",
+        "publishScheduleInterval": "Six",
+        "publishScheduleStartDateTime": "2026-01-01T00:00"
+      }
+    }
+  ]
+}

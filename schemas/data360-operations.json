@@ -1,0 +1,205 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/OperationsResult",
+  "definitions": {
+    "OperationsResult": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperationRecord"
+          }
+        },
+        "reconciliation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReconciliationResult"
+          }
+        }
+      },
+      "required": ["operations", "reconciliation"],
+      "additionalProperties": false
+    },
+    "OperationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "number",
+          "const": 1
+        },
+        "operationId": {
+          "type": "string"
+        },
+        "phase": {
+          "type": "string",
+          "enum": ["prepared", "dispatching", "uncertain", "confirmed", "committed", "rejected"]
+        },
+        "orgId": {
+          "type": "string"
+        },
+        "dataSpace": {
+          "type": "string"
+        },
+        "lineage": {
+          "type": "string"
+        },
+        "stateSerial": {
+          "type": "number"
+        },
+        "replayContract": {
+          "type": "string",
+          "enum": ["none", "rejected-dependency-delete"]
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "normalisationVersion": {
+          "type": "number",
+          "const": 1
+        },
+        "method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "preparedAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "responseIdentifiers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "reconciliation": {
+          "type": "string"
+        },
+        "failure": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": ["REQUEST_TIMEOUT", "UNKNOWN_ERROR"]
+            },
+            "timeoutMs": {
+              "type": "number"
+            }
+          },
+          "required": ["code"],
+          "additionalProperties": false
+        },
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "intent": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "planId": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["create", "update", "delete", "action", "schema-upsert"]
+        },
+        "remoteId": {
+          "type": "string"
+        },
+        "lookup": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "protected": {
+          "type": "boolean"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preOperationIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preOperationComplete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "dataSpace",
+        "fingerprint",
+        "intent",
+        "key",
+        "lineage",
+        "method",
+        "normalisationVersion",
+        "operation",
+        "operationId",
+        "orgId",
+        "path",
+        "phase",
+        "planId",
+        "preparedAt",
+        "replayContract",
+        "stateSerial",
+        "type",
+        "updatedAt",
+        "version"
+      ]
+    },
+    "ReconciliationResult": {
+      "type": "object",
+      "properties": {
+        "operationId": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string",
+          "enum": ["committed", "unknown", "conflict"]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "candidateIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confirmedIdentity": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "apiName": {
+              "type": "string"
+            },
+            "dlApiName": {
+              "type": "string"
+            }
+          },
+          "required": ["id"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["operationId", "key", "outcome", "reason"],
+      "additionalProperties": false
+    }
+  }
+}
